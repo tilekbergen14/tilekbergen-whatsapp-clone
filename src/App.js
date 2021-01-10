@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Sidebar from "./components/Sidebar"
+import Chatbox from "./components/Chatbox"
+import {BrowserRouter, Switch, Route} from "react-router-dom"
+import Homepage from "./components/Home"
+import React, {useState} from "react"
+import Login from "./components/Login"
 
 function App() {
+  const [user, setUser] = useState(null) 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+        <div className="app">
+        <div className="app__box">
+          {!user  ? (<Login />) : (
+            <div>
+              <Sidebar />
+              <Switch>
+                <Route path="/" exact component={Homepage}/>
+                  <Route path="/:id" component={Chatbox}/>
+              </Switch>
+            </div>
+          )}
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
